@@ -21,11 +21,9 @@ import java.util.stream.Collectors;
 /**
  * open ai 客户端
  *
- * @author plexpt
  */
 
 @Slf4j
-
 public class ConsoleChatGPT {
 
     public static Proxy proxy = Proxy.NO_PROXY;
