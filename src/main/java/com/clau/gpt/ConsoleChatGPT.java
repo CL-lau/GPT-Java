@@ -1,5 +1,6 @@
 package com.clau.gpt;
 
+import cn.hutool.core.util.NumberUtil;
 import com.clau.gpt.entity.chat.Message;
 import com.clau.gpt.listener.ConsoleStreamListener;
 import com.clau.gpt.util.Proxys;
