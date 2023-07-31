@@ -1,5 +1,6 @@
 package com.clau.gpt.prompt.service;
 
+import com.clau.gpt.annotation.client.ChatGptClient;
 import com.clau.gpt.prompt.PromptInitializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -18,6 +20,15 @@ public class PromptService {
 
     @Autowired
     private PromptInitializer promptInitializer;
+
+    @Autowired
+    private ChatGptClient chatGptClient;
+
+    public String getPrompt(String text) throws IOException {
+        String mostSimilarWord = this.getMostSimilarWord(text);
+        String prompt = promptInitializer.getActsMap().get(mostSimilarWord);
+        return prompt;
+    }
 
     public String getMostSimilarWord(String inputEmbedding) throws IOException {
         double[] input = parseEmbedding(inputEmbedding);
@@ -34,27 +45,10 @@ public class PromptService {
     }
 
     public double[] parseEmbedding(String sentence) throws IOException {
-        String url = "http://localhost:port/encoder/embedding";
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setDoOutput(true);
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(5000);
-        String requestBody = "{\"text\":\"" + sentence + "\"}";
-        OutputStream outputStream = connection.getOutputStream();
-        outputStream.write(requestBody.getBytes());
-        outputStream.flush();
-        outputStream.close();
-        if (connection.getResponseCode() == 200) {
-            InputStream inputStream = connection.getInputStream();
-            byte[] bytes = inputStream.readAllBytes();
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(bytes);
-            return objectMapper.convertValue(jsonNode.get("embedding"), double[].class);
-        } else {
-            throw new RuntimeException("Failed to parse embedding for sentence: " + sentence);
-        }
+        List<Double> embeddings = chatGptClient.transEmbeddings(sentence, "", "");
+        return embeddings.stream()
+                .mapToDouble(Double::doubleValue)
+                .toArray();
     }
 
 
