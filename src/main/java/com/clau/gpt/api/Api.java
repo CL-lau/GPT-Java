@@ -1,8 +1,6 @@
 package com.clau.gpt.api;
 
-import com.clau.gpt.entity.billing.CreditGrantsResponse;
-import com.clau.gpt.entity.billing.SubscriptionData;
-import com.clau.gpt.entity.billing.UseageResponse;
+import com.clau.gpt.entity.billing.*;
 import com.clau.gpt.entity.chat.ChatCompletion;
 import com.clau.gpt.entity.chat.ChatCompletionResponse;
 import io.reactivex.Single;
@@ -42,6 +40,9 @@ public interface Api {
     Single<UseageResponse> usage(@Query("start_date") String startDate,
                                  @Query("end_date") String endDate);
 
+
+    @POST("v1/embeddings")
+    Single<EmbeddingResponse> getEmbeddings(@Body EmbeddingRequest request);
 
 }
 

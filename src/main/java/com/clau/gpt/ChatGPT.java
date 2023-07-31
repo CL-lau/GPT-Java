@@ -8,9 +8,7 @@ import cn.hutool.http.Header;
 import com.alibaba.fastjson.JSON;
 import com.clau.gpt.api.Api;
 import com.clau.gpt.entity.BaseResponse;
-import com.clau.gpt.entity.billing.CreditGrantsResponse;
-import com.clau.gpt.entity.billing.SubscriptionData;
-import com.clau.gpt.entity.billing.UseageResponse;
+import com.clau.gpt.entity.billing.*;
 import com.clau.gpt.entity.chat.ChatCompletion;
 import com.clau.gpt.entity.chat.ChatCompletionResponse;
 import com.clau.gpt.entity.chat.Message;
@@ -201,6 +199,23 @@ public class ChatGPT {
                 .init();
 
         return chatGPT.balance();
+    }
+
+    /**
+     * 获取embedding
+     *
+     * @param text 要获取embedding的文本
+     * @return 包含embedding的响应对象
+     */
+    public EmbeddingResponse getEmbeddings(String text) {
+        EmbeddingRequest request = new EmbeddingRequest(text);
+        Single<EmbeddingResponse> embeddingResponse = this.apiClient.getEmbeddings(request);
+        return embeddingResponse.blockingGet();
+    }
+    public List<Double> transEmbeddings(String text){
+        EmbeddingResponse embeddingResponse = this.getEmbeddings(text);
+        List<EmbeddingData> embeddingsData = embeddingResponse.getData();
+        return embeddingsData.get(0).getEmbedding();
     }
 
     public static String formatDate(Date date) {
