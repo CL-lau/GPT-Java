@@ -25,14 +25,14 @@ public class PromptInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Map<String, Object>> dataList = objectMapper.readValue(new File("com/clau/gpt/prompt/prompts-zh.json"), new TypeReference<List<Map<String, Object>>>() {});
+        List<Map<String, Object>> dataList = objectMapper.readValue(new File("src/main/java/com/clau/gpt/prompt/prompts-embedding.json"), new TypeReference<List<Map<String, Object>>>() {});
         for (Map<String, Object> data : dataList) {
             String word = (String) data.get("act");
             double[] embedding = objectMapper.convertValue(data.get("embedding"), double[].class);
             embeddingsMap.put(word, embedding);
         }
 
-        List<Map<String, Object>> actList = objectMapper.readValue(new File("com/clau/gpt/prompt/prompts-zh.json"), new TypeReference<List<Map<String, Object>>>() {});
+        List<Map<String, Object>> actList = objectMapper.readValue(new File("src/main/java/com/clau/gpt/prompt/prompts-zh.json"), new TypeReference<List<Map<String, Object>>>() {});
         for (Map<String, Object> data : actList) {
             String word = (String) data.get("act");
             String prompt = (String) data.get("prompt");

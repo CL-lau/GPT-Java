@@ -1,86 +1,51 @@
 <h1 style="text-align: center; color: hotpink; -webkit-animation: rainbow 5s infinite; -moz-animation: rainbow 5s infinite; -o-animation: rainbow 5s infinite; animation: rainbow 5s infinite;">ChatGPT Java API</h1>
 
-![stable](https://img.shields.io/badge/stability-stable-brightgreen.svg)
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.plexpt/chatgpt)](https://maven-badges.herokuapp.com/maven-central/com.github.plexpt/chatgpt)
-
-[English Doc](https://github.com/PlexPt/chatgpt-java/blob/main/README_en.md).
-
-
-OpenAI ChatGPT 的SDK。觉得不错请右上角Star
- 
- 
-#### 项目合作洽谈请点击 联系微信 https://work.weixin.qq.com/kfid/kfc6913bb4906e0e597
-
-### QQ群：645132635
-
-### 免费5刀的帐号已被限速
-
-### GPT4.0 API 权限帐号：[购买](https://fk.fq.mk?code=YT0xJmI9Mjc%3D)
+OpenAI ChatGPT 的SDK。觉得不错请右上角Star. 修改自 [Github 仓库](https://github.com/PlexPt/chatgpt-java)
 
 # 中文语料库
 
 [中文语料库 67万+问题，欢迎拿去炼丹](https://github.com/PlexPt/chatgpt-corpus)
 
 
-
-点击👇🏻传送链接，购买云服务器炼丹：
-
-- [**阿里云服务器**](https://51015.cn/ss/3vpds)
-- [**【腾讯云】云服务器，低至4.2元/月**](https://url.cn/B7m0OYnG)
-
 # 功能特性
 
-|     功能      |   特性   |
-|:-----------:| :------: |
-|   GPT 3.5   |   支持   |
-|   GPT 4.0   |   支持   |
-| GPT 3.5-16k |   支持   |
-| GPT 4.0-32k |   支持   |
-|    函数调用     |   支持   |
-|    流式对话     |   支持   |
-|    阻塞式对话    |   支持   |
-|     前端      |    无    |
-|     上下文     |   支持   |
-|   计算Token   | [用jtokkit](https://github.com/knuddelsgmbh/jtokkit) |
-|   多KEY轮询    |   支持   |
-|     代理      |   支持   |
-|    反向代理     |   支持   |
-
-
-
- 
-
-![image](https://user-images.githubusercontent.com/15922823/206353660-47d99158-a664-4ade-b2f1-e2cc8ac68b74.png)
-
-![image](https://user-images.githubusercontent.com/15922823/206615422-23c5e587-d29a-4f04-8d0d-f8dd7c19da37.png)
-
+|     功能      |                         特性                         |
+|:-----------:|:--------------------------------------------------:|
+|   GPT 3.5   |                         支持                         |
+|   GPT 4.0   |                         支持                         |
+| GPT 3.5-16k |                         支持                         |
+| GPT 4.0-32k |                         支持                         |
+|    函数调用     |                         支持                         |
+|    流式对话     |                         支持                         |
+|    阻塞式对话    |                         支持                         |
+|     前端      |                         支持                         |
+|     上下文     |                         支持                         |
+|   计算Token   | [jtokkit](https://github.com/knuddelsgmbh/jtokkit) |
+|   多KEY轮询    |                         支持                         |
+|     代理      |                         支持                         |
+|    反向代理     |                         支持                         |
+| Embedding转换 |                         支持                         |
 
 
 ## 使用指南
 
-你可能在找这个，参考Demo https://github.com/PlexPt/chatgpt-online-springboot
-
-最新版本 [![Maven Central](https://img.shields.io/maven-central/v/com.github.plexpt/chatgpt)](https://maven-badges.herokuapp.com/maven-central/com.github.plexpt/chatgpt)
+[//]: # (最新版本 [![Maven Central]&#40;https://img.shields.io/maven-central/v/com.github.plexpt/chatgpt&#41;]&#40;https://maven-badges.herokuapp.com/maven-central/com.github.plexpt/chatgpt&#41;)
 
 maven
 ```
-<dependency>
-    <groupId>com.github.plexpt</groupId>
-    <artifactId>chatgpt</artifactId>
-    <version>4.1.2</version>
-</dependency>
+
 ```
 
 gradle
 ```
-implementation group: 'com.github.plexpt', name: 'chatgpt', version: '4.1.2'
+
 ```
 
 
 
 ### 最简使用
 
-也可以使用这个类进行测试 [ConsoleChatGPT](src/main/java/com/plexpt/chatgpt/ConsoleChatGPT.java)
+也可以使用这个类进行测试 [ConsoleChatGPT](src/main/java/com/clau/chatgpt/ConsoleChatGPT.java)
 
 ```java
       //国内需要代理
@@ -108,15 +73,15 @@ implementation group: 'com.github.plexpt', name: 'chatgpt', version: '4.1.2'
       Proxy proxy = Proxys.http("127.0.0.1", 1080);
 
       ChatGPT chatGPT = ChatGPT.builder()
-                .apiKey("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")
+                .apiKey("sk-*****************************")
                 .proxy(proxy)
                 .timeout(900)
                 .apiHost("https://api.openai.com/") //反向代理地址
                 .build()
                 .init();
      
-        Message system = Message.ofSystem("你现在是一个诗人，专门写七言绝句");
-        Message message = Message.of("写一段七言绝句诗，题目是：火锅！");
+        Message system = Message.ofSystem("你现在是一个一直打拼的程序员，主要复杂Java开发。");
+        Message message = Message.of("写一个高水平的五子棋游戏！");
 
         ChatCompletion chatCompletion = ChatCompletion.builder()
                 .model(ChatCompletion.Model.GPT_3_5_TURBO.getName())
@@ -245,9 +210,9 @@ implementation group: 'com.github.plexpt', name: 'chatgpt', version: '4.1.2'
 
 ### 流式配合Spring SseEmitter使用
 
-参考 [SseStreamListener](src/main/java/com/plexpt/chatgpt/listener/SseStreamListener.java)
+参考 [SseStreamListener](src/main/java/com/clau/chatgpt/listener/SseStreamListener.java)
 
-你可能在找这个，参考Demo https://github.com/PlexPt/chatgpt-online-springboot
+参考Demo https://github.com/PlexPt/chatgpt-online-springboot
 
 ```java
   
@@ -306,7 +271,7 @@ chatGPT = ChatGPT.builder()
 
 ## 上下文
 
-参考  [ChatContextHolder.java](src/main/java/com/plexpt/chatgpt/util/ChatContextHolder.java) 
+参考  [ChatContextHolder.java](src/main/java/com/clau/chatgpt/util/ChatContextHolder.java) 
 
 
 
@@ -343,21 +308,9 @@ https://juejin.cn/post/7173447848292253704
 
 https://mirror.xyz/boxchen.eth/9O9CSqyKDj4BKUIil7NC1Sa1LJM-3hsPqaeW_QjfFBc
 
-#### 另外请看看我的另一个项目 [ChatGPT中文使用指南](https://github.com/PlexPt/awesome-chatgpt-prompts-zh)
-
-公众号
-
- <img src="https://user-images.githubusercontent.com/15922823/218004565-bb632624-b376-4f01-8ce2-d7065107bf4a.png" width="300"/> 
-
-# 云服务器
-
-点击👇🏻传送链接，购买云服务器：
-
-- [**阿里云服务器**](https://reurl.cc/NqQXyx)
-- [**【腾讯云】云服务器等爆品抢先购，低至4.2元/月**](https://url.cn/B7m0OYnG)
-
+#### 另外请看另一个项目 [ChatGPT中文使用指南](https://github.com/PlexPt/awesome-chatgpt-prompts-zh)
 
 
 # Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=PlexPt/chatgpt-java&type=Date)](https://star-history.com/#PlexPt/chatgpt-java&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=CL-lau/GPT-Java&type=Date)](https://star-history.com/#CL-lau/GPT-Java&Date)

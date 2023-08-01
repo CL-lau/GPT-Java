@@ -1,0 +1,76 @@
+/* ChatGPTChat.css */
+.chat-container {
+    width: 600px;
+    max-width: 100%;
+    margin: 0 auto;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+.chat-messages {
+    height: 400px;
+    overflow-y: scroll;
+    padding: 16px;
+}
+
+.user-message,
+.bot-message {
+    max-width: 80%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.user-message {
+    background-color: #d1eefa;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #e8f6fc;
+    align-self: flex-start;
+}
+
+.input-container {
+    display: flex;
+    padding: 16px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.input-text {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.input-button {
+    padding: 12px 24px;
+    margin-left: 16px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.input-button:hover {
+    background-color: #0056b3;
+}
+
+.loading-message {
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+}

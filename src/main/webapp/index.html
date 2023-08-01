@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatGPT Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .chat-messages {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 8px;
+        }
+        .user-message {
+            background-color: #e5f4f9;
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+        .bot-message {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+        .input-container {
+            display: flex;
+            margin-top: 16px;
+        }
+        .input-text {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .input-button {
+            padding: 8px 16px;
+            margin-left: 8px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="chat-container">
+    <div class="chat-messages" id="chatMessages">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <div class="input-container">
+        <input type="text" class="input-text" id="userInput" placeholder="Type your message...">
+        <button class="input-button" id="sendMessageBtn">Send</button>
+    </div>
+</div>
+
+<script>
+    const chatMessagesDiv = document.getElementById("chatMessages");
+    const userInput = document.getElementById("userInput");
+    const sendMessageBtn = document.getElementById("sendMessageBtn");
+
+    sendMessageBtn.addEventListener("click", () => {
+        const userMessage = userInput.value;
+        displayUserMessage(userMessage);
+        sendMessageToBot(userMessage);
+        userInput.value = "";
+    });
+
+    function displayUserMessage(message) {
+        const userMessageDiv = document.createElement("div");
+        userMessageDiv.classList.add("user-message");
+        userMessageDiv.textContent = message;
+        chatMessagesDiv.appendChild(userMessageDiv);
+    }
+
+    function displayBotMessage(message) {
+        const botMessageDiv = document.createElement("div");
+        botMessageDiv.classList.add("bot-message");
+        botMessageDiv.textContent = message;
+        chatMessagesDiv.appendChild(botMessageDiv);
+    }
+
+    function sendMessageToBot(message) {
+        // Replace 'YOUR_BOT_ENDPOINT' with the actual endpoint URL of your ChatGPT backend
+        const botEndpoint = "YOUR_BOT_ENDPOINT";
+        fetch(botEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message: message }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                const botMessage = data.response;
+                displayBotMessage(botMessage);
+            })
+            .catch((error) => {
+                console.error("Error sending message to bot:", error);
+            });
+    }
+</script>
+</body>
+</html>
